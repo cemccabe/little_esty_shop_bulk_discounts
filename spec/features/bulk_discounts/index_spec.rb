@@ -37,4 +37,11 @@ RSpec.describe 'Bulk Discounts Index Page' do
       end
     end
   end
+
+  describe 'User Story #2' do
+    it 'has a link to create a new discount that redirects to the create page' do
+      click_link 'Create a New Discount'
+      expect(page).to have_current_path("/merchant/#{@merchant1.id}/bulk_discounts/new")
+    end
+  end
 end

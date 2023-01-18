@@ -39,4 +39,29 @@ RSpec.describe InvoiceItem, type: :model do
       expect(InvoiceItem.incomplete_invoices).to eq([@i1, @i3])
     end
   end
+
+  describe '#valid_discount' do
+    it 'returns invoice items that can have a discount applied to it' do
+      merchant1 = Merchant.create!(name: 'Hair Care')
+      merchant2 = Merchant.create!(name: 'Jewelry')
+
+      item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: merchant1.id, status: 1)
+      item_5 = Item.create!(name: "Bracelet", description: "Wrist bling", unit_price: 200, merchant_id: merchant2.id)
+      
+      customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')
+      customer_2 = Customer.create!(first_name: 'Cecilia', last_name: 'Jones')
+      
+      invoice_1 = Invoice.create!(customer_id: customer_1.id, status: 2, created_at: "2012-03-27 14:54:09")
+      invoice_3 = Invoice.create!(customer_id: customer_2.id, status: 2)
+      
+      ii_1 = InvoiceItem.create!(invoice_id: invoice_1.id, item_id: item_1.id, quantity: 9, unit_price: 10, status: 2)
+      ii_3 = InvoiceItem.create!(invoice_id: invoice_3.id, item_id: item_5.id, quantity: 2, unit_price: 8, status: 2)
+
+      bd1 = @merchant1.bulk_discounts.create!(percentage: 50, quantity_threshold: 10)
+      bd2 = @merchant1.bulk_discounts.create!(percentage: 25, quantity_threshold: 5)
+
+      expect(ii_1.valid_discount).to eq(bd1)
+      expect(ii_2.valid_discount).to eq(nil)
+    end
+  end
 end

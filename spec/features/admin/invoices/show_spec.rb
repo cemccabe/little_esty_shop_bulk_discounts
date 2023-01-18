@@ -92,9 +92,9 @@ describe 'Admin Invoices Index Page' do
     it 'displays the total invoice revenue, both discounted and not discounted' do
       visit admin_invoice_path(invoice_1)
 
-      expect(page).to have_content("Total Revenue: #{invoice_1.total_revenue}")
-      expect(page).to have_content("Total Discount: #{invoice_1.discounted_revenue}")
-      expect(page).to have_content("Total Revenue: #{invoice_1.revenue_after_discount}")
+      expect(page).to have_content("Total Revenue: $#{invoice_1.total_revenue}")
+      expect(page).to have_content("Total Discount: $#{invoice_1.total_discount}")
+      expect(page).to have_content("Total Revenue After Discount: $#{invoice_1.revenue_after_discount}")
     end
   end
 end

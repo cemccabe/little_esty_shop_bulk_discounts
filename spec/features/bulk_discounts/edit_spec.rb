@@ -14,8 +14,9 @@ RSpec.describe 'Bulk Discounts Edit Page' do
 
   describe 'User Story #5' do
     it 'contains a prepopulated form to edit the discount' do
-      expect(page).to have_content("Percentange: #{@bd1.percentage}")
-      expect(page).to have_content("Quantity Threshold: #{@bd1.quantity_threshold}")
+      expect(page).to have_field(:percentage, with: "#{@bd1.percentage}")
+      expect(page).to have_field(:quantity_threshold, with: "#{@bd1.quantity_threshold}")
+      expect(page).to have_button('Update Discount')
 
       fill_in :percentage, with: 25
       fill_in :quantity_threshold, with: 10
@@ -23,7 +24,7 @@ RSpec.describe 'Bulk Discounts Edit Page' do
       click_button 'Update Discount'
 
       expect(current_path).to eq(merchant_bulk_discount_path(@merchant1, @bd1))
-      expect(page).to have_content("Percentange: 25.o")
+      expect(page).to have_content("Percentage Discount: 25.0")
       expect(page).to have_content("Quantity Threshold: 10")
     end
   end

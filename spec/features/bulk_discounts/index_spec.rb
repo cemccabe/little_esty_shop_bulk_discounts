@@ -50,6 +50,7 @@ RSpec.describe 'Bulk Discounts Index Page' do
   describe 'User Story #3' do
     it 'has a link to delete a bulk discount' do
       within("#bulk_discounts") do
+        save_and_open_page
         expect(page).to have_link("Delete Bulk Discount #{@bd1.id}")
         expect(page).to have_link("Delete Bulk Discount #{@bd2.id}")
         expect(page).to_not have_link("Delete Bulk Discount #{@bd3.id}")

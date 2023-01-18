@@ -12,3 +12,10 @@
 <div id="new_discount">
   <%= link_to 'Create a New Discount', new_merchant_bulk_discount_path(@merchant) %>
 </div>
+
+<div id="holidays">
+  <h2>Upcoming Holidays</h2>
+  <p><%= @holiday_names[0] %> | <%= holiday_dates[0] %></p>
+  <p><%= @holiday_names[1] %> | <%= holiday_dates[1] %></p>
+  <p><%= @holiday_names[2] %> | <%= holiday_dates[2] %></p>
+</div>

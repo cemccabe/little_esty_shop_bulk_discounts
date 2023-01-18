@@ -9,10 +9,22 @@ RSpec.describe 'Bulk Discounts Edit Page' do
     @bd2 = @merchant1.bulk_discounts.create!(percentage: 33.3, quantity_threshold: 5)
     @bd3 = @merchant2.bulk_discounts.create!(percentage: 10, quantity_threshold: 2)
 
-    visit merchant_bulk_discount_path(@merchant1, @bd1)
+    visit edit_merchant_bulk_discount_path(@merchant1, @bd1)
   end
 
   describe 'User Story #5' do
-    it ''
+    it 'contains a prepopulated form to edit the discount' do
+      expect(page).to have_content("Percentange: #{@bd1.percentage}")
+      expect(page).to have_content("Quantity Threshold: #{@bd1.quantity_threshold}")
+
+      fill_in :percentage, with: 25
+      fill_in :quantity_threshold, with: 10
+
+      click_button 'Update Discount'
+
+      expect(current_path).to eq(merchant_bulk_discount_path(@merchant1, @bd1))
+      expect(page).to have_content("Percentange: 25.o")
+      expect(page).to have_content("Quantity Threshold: 10")
+    end
   end
 end

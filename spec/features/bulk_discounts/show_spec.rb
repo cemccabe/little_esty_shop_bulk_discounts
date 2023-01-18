@@ -27,4 +27,10 @@ RSpec.describe 'Bulk Discounts Show Page' do
       expect(page).to_not have_content("Quantity Threshold: #{@bd3.quantity_threshold}")
     end
   end
+
+  describe 'User Story #5' do
+    it 'contains a link to edit a bulk discount' do
+      expect(page).to have_link('Edit Bulk Discount')
+    end
+  end
 end

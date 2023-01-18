@@ -26,7 +26,7 @@ RSpec.describe 'Bulk Discounts Index Page' do
     end
 
     it 'And each bulk discount listed includes a link to its show page' do
-      within ("#bulk_discounts") do
+      within("#bulk_discounts") do
         expect(page).to have_link("Bulk Discount #{@bd1.id}")
         expect(page).to have_link("Bulk Discount #{@bd2.id}")
         expect(page).to_not have_link("Bulk Discount #{@bd3.id}")
@@ -40,8 +40,10 @@ RSpec.describe 'Bulk Discounts Index Page' do
 
   describe 'User Story #2' do
     it 'has a link to create a new discount that redirects to the create page' do
-      click_link 'Create a New Discount'
-      expect(page).to have_current_path("/merchant/#{@merchant1.id}/bulk_discounts/new")
+      within("#new_discount") do
+        click_link 'Create a New Discount'
+        expect(page).to have_current_path("/merchant/#{@merchant1.id}/bulk_discounts/new")
+      end
     end
   end
 end
